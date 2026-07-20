@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Image Downloader</title>
+</head>
+<body>
+    <div>
+        <h2>Paste your image URLs as a JSON array (e.g. ["url1", "url2"])</h2>
+
+        <textarea
+            id="urls"
+            rows="10"
+            placeholder='["https://example.com/a.jpg", "https://example.com/b.jpg"]'
+        ></textarea>
+
+        <button id="download-btn">Download Images</button>
+
+        <p id="message" hidden></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

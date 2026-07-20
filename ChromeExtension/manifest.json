@@ -1,0 +1,15 @@
+{
+  "name": "Image Downloader",
+  "description": "Image Downloader extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+      "http://127.0.0.1:8766/*"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  }
+}
+
