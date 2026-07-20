@@ -9,6 +9,7 @@ import requests
 
 CONFIG_PATH = "config.json"
 
+
 class Daemon:
     def __init__(self):
         data = self.fetchConfig()
@@ -60,17 +61,17 @@ class Daemon:
                 for url in urls
             }
 
+            total = len(urls)
             for future in as_completed(futures):
                 url = futures[future]
                 try:
                     path = future.result()
-                    print(f"✓ Downloaded {url} -> {path}")
                     downloaded.append(path)
+                    print(f"✓ [{len(downloaded)}/{total}] Downloaded {url} -> {path}")
                 except Exception as e:
                     print(f"✗ Failed {url}: {e}")
 
         return downloaded
-
 
     async def downloadImages(self, request):
         data = await request.json()
@@ -80,8 +81,13 @@ class Daemon:
             return web.json_response({
                 "error": "Urls needed to download the images"
             })
-        
-        self.download_files(data["urls"], self.downloadPath)
+        downloadPath = self.downloadPath
+        if "subfolder" in data:
+            downloadPath = os.path.join(downloadPath, data["subfolder"])
+            if not os.path.exists(downloadPath):
+                os.makedirs(downloadPath, exist_ok=True)
+
+        self.download_files(data["urls"], downloadPath)
 
         return web.json_response({
             "status": "ok"

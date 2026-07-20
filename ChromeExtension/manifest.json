@@ -3,13 +3,26 @@
   "description": "Image Downloader extension",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": [
-      "http://127.0.0.1:8766/*"
+  "permissions": [
+    "activeTab",
+    "scripting"
   ],
+  "host_permissions": [
+    "http://127.0.0.1:8766/*"
+  ],
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "action": {
     "default_popup": "index.html",
-    "default_icon": "icon.png"
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
   }
 }
-

@@ -1,5 +1,6 @@
 async function downloadImages() {
   let urls = document.querySelector("#urls").value;
+  const subfolder = document.querySelector("#subfolder").value;
   if (urls.length == 0) return
   console.log("Before parsing", urls)
   try {
@@ -11,7 +12,7 @@ async function downloadImages() {
 
   console.log("After parsing:", urls)
 
-  const response = await triggerPythonDaemon(urls);
+  const response = await triggerPythonDaemon(urls, subfolder);
 
   const messageElement = document.querySelector("#message");
   messageElement.style.display = "block"
@@ -22,14 +23,14 @@ async function downloadImages() {
   }
 }
 
-function triggerPythonDaemon(urls) {
+function triggerPythonDaemon(urls, subfolder) {
   return new Promise((resolve, reject) => {
     fetch("http://127.0.0.1:8766/download_images", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({"urls": urls}),
+      body: JSON.stringify({urls, ...(subfolder.length > 0 ? {subfolder} : {})}),
     })
       .then(() => resolve(true))
       .catch((err) => {
